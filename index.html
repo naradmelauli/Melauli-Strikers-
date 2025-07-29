@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cricket Team Registration</title>
+    <style>
+        :root {
+            --primary: #f8086b;
+            --secondary: #002c83;
+            --light: #ffffff;
+            --dark: #2d3748;
+            --gray: #718096;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(to bottom right, #f5f7fa 0%, #e4e8ed 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .form-card {
+            width: 100%;
+            max-width: 500px;
+            background: var(--light);
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            transform: translateY(0);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .form-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+        }
+        
+        .form-header {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .form-header::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: var(--light);
+            border-radius: 50% 50% 0 0 / 20px;
+        }
+        
+        .form-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .form-subtitle {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+        
+        .form-body {
+            padding: 30px;
+        }
+        
+        .input-group {
+            margin-bottom: 24px;
+            position: relative;
+        }
+        
+        .input-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 0.95rem;
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #f8fafc;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(0, 44, 131, 0.1);
+            background: white;
+        }
+        
+        .phone-input {
+            display: flex;
+            align-items: center;
+        }
+        
+        .phone-prefix {
+            background: #edf2f7;
+            padding: 0 14px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            border: 2px solid #e2e8f0;
+            border-right: none;
+            border-radius: 10px 0 0 10px;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        
+        #contactNumber {
+            border-radius: 0 10px 10px 0;
+            flex: 1;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin: 30px 0;
+        }
+        
+        .checkbox-input {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            accent-color: var(--primary);
+        }
+        
+        .checkbox-label {
+            font-size: 0.95rem;
+            color: var(--dark);
+        }
+        
+        .submit-btn {
+            background: linear-gradient(to right, var(--primary) 0%, #e9086a 100%);
+            color: white;
+            border: none;
+            padding: 16px;
+            width: 100%;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(248, 8, 107, 0.2);
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 14px rgba(248, 8, 107, 0.3);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        
+        .success-message {
+            display: none;
+            background: rgba(40, 167, 69, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 25px;
+            text-align: center;
+            border-left: 4px solid #28a745;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .success-title {
+            color: #28a745;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .error-message {
+            color: #e53e3e;
+            font-size: 0.85rem;
+            margin-top: 6px;
+            display: none;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Mobile-specific styles */
+        @media (max-width: 480px) {
+            body {
+                padding: 15px;
+                align-items: flex-start;
+            }
+            
+            .form-card {
+                border-radius: 12px;
+            }
+            
+            .form-header {
+                padding: 20px 15px;
+            }
+            
+            .form-title {
+                font-size: 1.5rem;
+            }
+            
+            .form-body {
+                padding: 25px 20px;
+            }
+            
+            .input-field {
+                padding: 12px 14px;
+            }
+            
+            .submit-btn {
+                padding: 14px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-card">
+        <div class="form-header">
+            <h1 class="form-title">TEAM REGISTRATION</h1>
+            <p class="form-subtitle">Register your team for the MS CUP S2</p>
+        </div>
+        
+        <div class="form-body">
+            <form id="registrationForm">
+                <!-- FormSubmit Configuration -->
+                <input type="hidden" name="_subject" value="New Team Registration">
+                <input type="hidden" name="_template" value="table">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_autoresponse" value="Thank you for registering! We'll contact you for Rs. 6000 payment.">
+
+                <div class="input-group">
+                    <label for="teamName" class="input-label">Team Name</label>
+                    <input type="text" id="teamName" name="Team Name" class="input-field" placeholder="Enter team name" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="caption" class="input-label">Captain</label>
+                    <input type="text" id="caption" name="Captain" class="input-field" placeholder="Captain's full name" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="viceCaption" class="input-label">Vice Captain</label>
+                    <input type="text" id="viceCaption" name="Vice Captain" class="input-field" placeholder="Vice captain's full name" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="playerSquad" class="input-label">Player Squad</label>
+                    <textarea id="playerSquad" name="Player Squad" class="input-field" placeholder="List all players" required></textarea>
+                </div>
+                
+                <div class="input-group">
+                    <label for="email" class="input-label">Email Address</label>
+                    <input type="email" id="email" name="Email" class="input-field" placeholder="Your email address" required>
+                    <div id="emailError" class="error-message">Please enter a valid email address</div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="contactNumber" class="input-label">Contact Number</label>
+                    <div class="phone-input">
+                        <div class="phone-prefix">+977</div>
+                        <input type="tel" id="contactNumber" name="Phone" 
+                               class="input-field"
+                               pattern="[0-9]{10}" 
+                               title="10-digit phone number without prefix" 
+                               placeholder="I will contact for payment." 
+                               required>
+                    </div>
+                    <div id="phoneError" class="error-message">Please enter a valid 10-digit phone number</div>
+                </div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="paymentConfirm" class="checkbox-input" required>
+                    <label for="paymentConfirm" class="checkbox-label">I agree to pay Rs. 6000 registration fee</label>
+                </div>
+                
+                <button type="submit" class="submit-btn">Register Team</button>
+                
+                <div id="successMessage" class="success-message">
+                    <h3 class="success-title">Registration Successful!</h3>
+                    <p>We will contact you shortly for payment.</p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const phoneInput = document.getElementById('contactNumber');
+        const phoneError = document.getElementById('phoneError');
+        const emailInput = document.getElementById('email');
+        const emailError = document.getElementById('emailError');
+        const form = document.getElementById('registrationForm');
+        
+        // Real-time phone validation
+        phoneInput.addEventListener('input', function() {
+            const isValid = this.value.length === 10 && /^\d+$/.test(this.value);
+            
+            if (isValid) {
+                phoneError.style.display = 'none';
+                this.style.borderColor = '#38a169';
+                this.style.backgroundColor = '#f0fff4';
+            } else {
+                phoneError.style.display = 'block';
+                this.style.borderColor = '#e53e3e';
+                this.style.backgroundColor = '#fff5f5';
+            }
+        });
+
+        // Email validation
+        emailInput.addEventListener('input', function() {
+            const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.value);
+            
+            if (isValid) {
+                emailError.style.display = 'none';
+                this.style.borderColor = '#38a169';
+                this.style.backgroundColor = '#f0fff4';
+            } else {
+                emailError.style.display = 'block';
+                this.style.borderColor = '#e53e3e';
+                this.style.backgroundColor = '#fff5f5';
+            }
+        });
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Final phone validation
+            if (phoneInput.value.length !== 10 || !/^\d+$/.test(phoneInput.value)) {
+                phoneError.style.display = 'block';
+                phoneInput.style.borderColor = '#e53e3e';
+                phoneInput.style.backgroundColor = '#fff5f5';
+                phoneInput.focus();
+                return;
+            }
+            
+            // Final email validation
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value)) {
+                emailError.style.display = 'block';
+                emailInput.style.borderColor = '#e53e3e';
+                emailInput.style.backgroundColor = '#fff5f5';
+                emailInput.focus();
+                return;
+            }
+            
+            // Show success message
+            document.getElementById('successMessage').style.display = 'block';
+            
+            // Submit form
+            const formData = new FormData(form);
+            
+            fetch('https://formsubmit.co/ajax/melaulistrikers@gmail.com', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Submission successful', data);
+                form.reset();
+                window.scrollTo({
+                    top: document.getElementById('successMessage').offsetTop - 20,
+                    behavior: 'smooth'
+                });
+            })
+            .catch(error => {
+                console.error('Submission error:', error);
+                alert('Submission failed. Please try again.');
+            });
+        });
+    </script>
+</body>
+</html>
