@@ -200,144 +200,160 @@
             display: none;
         }
         
-        /* Squad Display Styles */
-        .squad-display {
+        /* Review Page Styles */
+        .review-page {
             display: none;
-            margin-top: 30px;
-            background: white;
+            padding: 30px;
+        }
+        
+        .squad-display {
+            background: #f8fafc;
             border-radius: 10px;
-            padding: 25px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            text-align: center;
+            padding: 20px;
+            margin-bottom: 25px;
+            border: 1px solid #e2e8f0;
         }
         
         .squad-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            color: var(--secondary);
-            text-transform: uppercase;
-        }
-        
-        .squad-subtitle {
-            font-size: 1rem;
-            color: var(--primary);
-            margin-bottom: 20px;
+            font-size: 1.2rem;
             font-weight: 600;
-        }
-        
-        .squad-divider {
-            height: 2px;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            margin: 15px 0;
-            border: none;
+            margin-bottom: 15px;
+            color: var(--secondary);
+            text-align: center;
         }
         
         .squad-list {
-            text-align: left;
+            list-style-type: none;
+        }
+        
+        .squad-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+        }
+        
+        .squad-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .player-number {
+            font-weight: 600;
+            margin-right: 10px;
+            color: var(--primary);
+            min-width: 25px;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
             margin-top: 20px;
         }
         
-        .squad-captain {
-            font-weight: 700;
-            margin-bottom: 5px;
-            text-transform: uppercase;
-        }
-        
-        .squad-vice-captain {
+        .edit-btn, .confirm-btn {
+            flex: 1;
+            padding: 14px;
+            border-radius: 10px;
             font-weight: 600;
-            margin-bottom: 5px;
-            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
         }
         
-        .squad-player {
-            margin-bottom: 3px;
-            text-transform: uppercase;
+        .edit-btn {
+            background: #edf2f7;
+            color: var(--dark);
+            border: 2px solid #e2e8f0;
+        }
+        
+        .edit-btn:hover {
+            background: #e2e8f0;
+        }
+        
+        .confirm-btn {
+            background: linear-gradient(to right, var(--secondary) 0%, #002369 100%);
+            color: white;
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 44, 131, 0.2);
+        }
+        
+        .confirm-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 14px rgba(0, 44, 131, 0.3);
+        }
+        
+        /* Final Success Page */
+        .final-success {
+            display: none;
+            text-align: center;
+            padding: 30px;
+        }
+        
+        .final-success-icon {
+            font-size: 4rem;
+            color: #28a745;
+            margin-bottom: 20px;
         }
         
         .download-btn {
-            background: var(--secondary);
+            background: linear-gradient(to right, var(--primary) 0%, #e9086a 100%);
             color: white;
             border: none;
-            padding: 12px 20px;
-            border-radius: 8px;
+            padding: 14px 20px;
+            border-radius: 10px;
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            margin-top: 20px;
             transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(248, 8, 107, 0.2);
+            margin: 25px auto;
+            display: block;
+            max-width: 250px;
         }
         
         .download-btn:hover {
-            background: var(--primary);
             transform: translateY(-2px);
+            box-shadow: 0 7px 14px rgba(248, 8, 107, 0.3);
         }
         
-        /* Hidden canvas for image generation */
-        #squadCanvas {
+        .contact-info {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+            text-align: left;
+        }
+        
+        .contact-info p {
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            color: var(--dark);
+        }
+        
+        /* Loading Bar */
+        .loading-container {
             display: none;
+            margin: 30px 0;
         }
         
-        /* Special styling for the image version */
-        .squad-image-container {
-            position: fixed;
-            top: -10000px;
-            left: -10000px;
-            width: 600px;
-            padding: 40px;
-            background: white;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
-            border-radius: 10px;
-        }
-        
-        .squad-image-title {
-            font-size: 2.5rem;
-            font-weight: 800;
+        .loading-bar {
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
             margin-bottom: 15px;
-            color: var(--secondary);
-            text-transform: uppercase;
+        }
+        
+        .loading-progress {
+            height: 100%;
+            width: 0;
+            background: linear-gradient(to right, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+        
+        .loading-text {
             text-align: center;
-        }
-        
-        .squad-image-subtitle {
-            font-size: 1.2rem;
-            color: var(--primary);
-            margin-bottom: 30px;
-            font-weight: 700;
-            text-align: center;
-        }
-        
-        .squad-image-divider {
-            height: 3px;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            margin: 20px 0;
-            border: none;
-        }
-        
-        .squad-image-list {
-            text-align: center;
-            margin-top: 25px;
-            font-size: 1.1rem;
-        }
-        
-        .squad-image-captain {
-            font-weight: 800;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            font-size: 1.2rem;
-        }
-        
-        .squad-image-vice-captain {
-            font-weight: 700;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            font-size: 1.15rem;
-        }
-        
-        .squad-image-player {
-            margin-bottom: 5px;
-            text-transform: uppercase;
-            font-weight: 600;
+            color: var(--gray);
+            font-size: 0.9rem;
         }
         
         @keyframes fadeIn {
@@ -377,12 +393,12 @@
                 font-size: 1rem;
             }
             
-            .squad-display {
-                padding: 20px;
+            .action-buttons {
+                flex-direction: column;
             }
             
-            .squad-title {
-                font-size: 1.5rem;
+            .review-page, .final-success {
+                padding: 25px 20px;
             }
         }
     </style>
@@ -394,7 +410,8 @@
             <p class="form-subtitle">Register your team for the MS CUP S2</p>
         </div>
         
-        <div class="form-body">
+        <!-- Registration Form Page -->
+        <div class="form-body" id="registrationPage">
             <form id="registrationForm">
                 <!-- FormSubmit Configuration -->
                 <input type="hidden" name="_subject" value="New Team Registration">
@@ -418,8 +435,8 @@
                 </div>
                 
                 <div class="input-group">
-                    <label for="playerSquad" class="input-label">Player Squad (One player per line)</label>
-                    <textarea id="playerSquad" name="Player Squad" class="input-field" placeholder="List all players (one per line)" required rows="5"></textarea>
+                    <label for="playerSquad" class="input-label">Player Squad</label>
+                    <textarea id="playerSquad" name="Player Squad" class="input-field" placeholder="List all players (one player per line)" required rows="6"></textarea>
                 </div>
                 
                 <div class="input-group">
@@ -447,42 +464,45 @@
                     <label for="paymentConfirm" class="checkbox-label">I agree to pay Rs. 6000 registration fee</label>
                 </div>
                 
-                <button type="submit" class="submit-btn">Register Team</button>
-                
-                <div id="successMessage" class="success-message">
-                    <h3 class="success-title">Registration Successful!</h3>
-                    <p>We will contact you soon for payment.</p>
-                </div>
+                <button type="submit" class="submit-btn">Next Page</button>
             </form>
+        </div>
+        
+        <!-- Review Page -->
+        <div class="review-page" id="reviewPage">
+            <div class="squad-display">
+                <h3 class="squad-title" id="reviewTeamName"></h3>
+                <ul class="squad-list" id="squadList"></ul>
+            </div>
             
-            <div id="squadDisplay" class="squad-display">
-                <h2 id="displayTeamName" class="squad-title"></h2>
-                <p class="squad-subtitle">SQUAD</p>
-                <hr class="squad-divider">
-                <div class="squad-list">
-                    <p id="displayCaptain" class="squad-captain"></p>
-                    <p id="displayViceCaptain" class="squad-vice-captain"></p>
-                    <div id="displayPlayers"></div>
+            <div class="action-buttons">
+                <button class="edit-btn" id="editBtn">Edit Squad</button>
+                <button class="confirm-btn" id="confirmBtn">Confirm Registration</button>
+            </div>
+            
+            <div class="loading-container" id="loadingContainer">
+                <div class="loading-bar">
+                    <div class="loading-progress" id="loadingProgress"></div>
                 </div>
-                <button id="downloadBtn" class="download-btn">Download Squad as Image</button>
+                <p class="loading-text">Processing your registration...</p>
+            </div>
+        </div>
+        
+        <!-- Final Success Page -->
+        <div class="final-success" id="finalSuccess">
+            <div class="final-success-icon">✓</div>
+            <h2 class="success-title">Registration Successful!</h2>
+            <p>We’ll contact you soon for payment.</p>
+            
+            <button class="download-btn" id="downloadBtn">Download Squad</button>
+            
+            <div class="contact-info">
+                <p><strong>For inquiries, please contact</strong></p>
+                <p>Phone: 9862206255, 9862465587</p>
+                <p>Email: melaulistrikers@gmail.com</p>
             </div>
         </div>
     </div>
-
-    <!-- Hidden container for image generation -->
-    <div id="squadImageContainer" class="squad-image-container">
-        <h2 id="imageTeamName" class="squad-image-title"></h2>
-        <p class="squad-image-subtitle">SQUAD</p>
-        <hr class="squad-image-divider">
-        <div class="squad-image-list">
-            <p id="imageCaptain" class="squad-image-captain"></p>
-            <p id="imageViceCaptain" class="squad-image-vice-captain"></p>
-            <div id="imagePlayers"></div>
-        </div>
-    </div>
-
-    <!-- html2canvas library for converting HTML to image -->
-    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
     <script>
         const phoneInput = document.getElementById('contactNumber');
@@ -490,6 +510,16 @@
         const emailInput = document.getElementById('email');
         const emailError = document.getElementById('emailError');
         const form = document.getElementById('registrationForm');
+        const registrationPage = document.getElementById('registrationPage');
+        const reviewPage = document.getElementById('reviewPage');
+        const finalSuccess = document.getElementById('finalSuccess');
+        const reviewTeamName = document.getElementById('reviewTeamName');
+        const squadList = document.getElementById('squadList');
+        const editBtn = document.getElementById('editBtn');
+        const confirmBtn = document.getElementById('confirmBtn');
+        const loadingContainer = document.getElementById('loadingContainer');
+        const loadingProgress = document.getElementById('loadingProgress');
+        const downloadBtn = document.getElementById('downloadBtn');
         
         // Real-time phone validation
         phoneInput.addEventListener('input', function() {
@@ -542,13 +572,78 @@
                 return;
             }
             
-            // Show success message
-            document.getElementById('successMessage').style.display = 'block';
+            // Show review page
+            showReviewPage();
+        });
+        
+        function showReviewPage() {
+            // Populate review page with form data
+            const teamName = document.getElementById('teamName').value;
+            const captain = document.getElementById('caption').value;
+            const viceCaptain = document.getElementById('viceCaption').value;
+            const players = document.getElementById('playerSquad').value.split('\n').filter(p => p.trim() !== '');
             
-            // Display squad information
-            displaySquad();
+            reviewTeamName.textContent = `${teamName} - Squad List`;
             
-            // Submit form
+            // Clear previous list
+            squadList.innerHTML = '';
+            
+            // Add captain first
+            const captainItem = document.createElement('li');
+            captainItem.innerHTML = `<span class="player-number">1</span><span class="player-name">${captain} (Captain)</span>`;
+            squadList.appendChild(captainItem);
+            
+            // Add vice captain second
+            const viceCaptainItem = document.createElement('li');
+            viceCaptainItem.innerHTML = `<span class="player-number">2</span><span class="player-name">${viceCaptain} (Vice Captain)</span>`;
+            squadList.appendChild(viceCaptainItem);
+            
+            // Add other players
+            players.forEach((player, index) => {
+                const playerItem = document.createElement('li');
+                playerItem.innerHTML = `<span class="player-number">${index + 3}</span><span class="player-name">${player}</span>`;
+                squadList.appendChild(playerItem);
+            });
+            
+            // Switch to review page
+            registrationPage.style.display = 'none';
+            reviewPage.style.display = 'block';
+            finalSuccess.style.display = 'none';
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+        
+        editBtn.addEventListener('click', function() {
+            // Go back to registration form
+            reviewPage.style.display = 'none';
+            registrationPage.style.display = 'block';
+            finalSuccess.style.display = 'none';
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        });
+        
+        confirmBtn.addEventListener('click', function() {
+            // Show loading animation
+            confirmBtn.style.display = 'none';
+            editBtn.style.display = 'none';
+            loadingContainer.style.display = 'block';
+            
+            // Animate loading bar
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += 5;
+                loadingProgress.style.width = `${progress}%`;
+                
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    submitForm();
+                }
+            }, 100);
+        });
+        
+        function submitForm() {
             const formData = new FormData(form);
             
             fetch('https://formsubmit.co/ajax/melaulistrikers@gmail.com', {
@@ -558,87 +653,132 @@
             .then(response => response.json())
             .then(data => {
                 console.log('Submission successful', data);
-                form.reset();
-                window.scrollTo({
-                    top: document.getElementById('squadDisplay').offsetTop - 20,
-                    behavior: 'smooth'
-                });
+                showSuccessPage();
             })
             .catch(error => {
                 console.error('Submission error:', error);
                 alert('Submission failed. Please try again.');
-            });
-        });
-        
-        // Function to display squad information
-        function displaySquad() {
-            const teamName = document.getElementById('teamName').value;
-            const captain = document.getElementById('caption').value;
-            const viceCaptain = document.getElementById('viceCaption').value;
-            const players = document.getElementById('playerSquad').value.split('\n').filter(player => player.trim() !== '');
-            
-            // Display in the visible section
-            document.getElementById('displayTeamName').textContent = teamName;
-            document.getElementById('displayCaptain').textContent = captain.toUpperCase() + ' (C)';
-            document.getElementById('displayViceCaptain').textContent = viceCaptain.toUpperCase() + ' (VC)';
-            
-            const playersContainer = document.getElementById('displayPlayers');
-            playersContainer.innerHTML = '';
-            
-            players.forEach(player => {
-                if (player.trim() !== '' && player.trim().toUpperCase() !== captain.toUpperCase() && player.trim().toUpperCase() !== viceCaptain.toUpperCase()) {
-                    const playerElement = document.createElement('p');
-                    playerElement.className = 'squad-player';
-                    playerElement.textContent = player.toUpperCase();
-                    playersContainer.appendChild(playerElement);
-                }
-            });
-            
-            document.getElementById('squadDisplay').style.display = 'block';
-            
-            // Also prepare the hidden image version
-            prepareImageVersion(teamName, captain, viceCaptain, players);
-        }
-        
-        // Prepare the hidden version for image download
-        function prepareImageVersion(teamName, captain, viceCaptain, players) {
-            document.getElementById('imageTeamName').textContent = teamName.toUpperCase();
-            document.getElementById('imageCaptain').textContent = captain.toUpperCase() + ' (C)';
-            document.getElementById('imageViceCaptain').textContent = viceCaptain.toUpperCase() + ' (VC)';
-            
-            const playersContainer = document.getElementById('imagePlayers');
-            playersContainer.innerHTML = '';
-            
-            players.forEach(player => {
-                if (player.trim() !== '' && player.trim().toUpperCase() !== captain.toUpperCase() && player.trim().toUpperCase() !== viceCaptain.toUpperCase()) {
-                    const playerElement = document.createElement('p');
-                    playerElement.className = 'squad-image-player';
-                    playerElement.textContent = player.toUpperCase();
-                    playersContainer.appendChild(playerElement);
-                }
+                loadingContainer.style.display = 'none';
+                confirmBtn.style.display = 'block';
+                editBtn.style.display = 'block';
             });
         }
         
-        // Download squad as image
-        document.getElementById('downloadBtn').addEventListener('click', function() {
-            const container = document.getElementById('squadImageContainer');
+        function showSuccessPage() {
+            reviewPage.style.display = 'none';
+            finalSuccess.style.display = 'block';
             
-            // Use html2canvas to convert the squad display to an image
-            html2canvas(container, {
-                scale: 3, // Higher quality
-                backgroundColor: null, // Transparent background
-                logging: false,
-                useCORS: true,
-                windowWidth: 600,
-                windowHeight: container.scrollHeight
-            }).then(canvas => {
-                // Convert canvas to image and download
-                const link = document.createElement('a');
-                link.download = `${document.getElementById('imageTeamName').textContent.replace(/\s+/g, '_')}_Squad.png`;
-                link.href = canvas.toDataURL('image/png');
-                link.click();
-            });
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+        
+        downloadBtn.addEventListener('click', function() {
+            downloadSquad();
         });
+        
+        function downloadSquad() {
+            // Create a canvas to generate the image
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Set canvas dimensions (1080x1400 as requested)
+            canvas.width = 1080;
+            canvas.height = 1400;
+            
+            // Fill background
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Add header with gradient
+            const headerGradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
+            headerGradient.addColorStop(0, '#002c83');
+            headerGradient.addColorStop(1, '#f8086b');
+            
+            ctx.fillStyle = headerGradient;
+            ctx.fillRect(0, 0, canvas.width, 200);
+            
+            // Add title with new font style
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 52px "Arial Black", Gadget, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('TEAM SQUAD', canvas.width/2, 100);
+            
+            ctx.font = '28px "Arial", sans-serif';
+            ctx.fillText('MS CUP S2', canvas.width/2, 150);
+            
+            // Add team name with new style and increased margin
+            ctx.fillStyle = '#002c83';
+            ctx.font = 'bold 42px "Arial Black", Gadget, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText(document.getElementById('teamName').value.toUpperCase(), canvas.width/2, 260);
+            
+            // Add squad list
+            ctx.fillStyle = '#2d3748';
+            ctx.textAlign = 'center';
+            
+            const captain = document.getElementById('caption').value.toUpperCase();
+            const viceCaptain = document.getElementById('viceCaption').value.toUpperCase();
+            const players = document.getElementById('playerSquad').value.split('\n').filter(p => p.trim() !== '');
+            
+            let yPosition = 340;
+            
+            // Add captain
+            drawPlayerName(ctx, captain, canvas.width/2, yPosition, true, ' (C)');
+            yPosition += 50;
+            
+            // Add vice captain
+            drawPlayerName(ctx, viceCaptain, canvas.width/2, yPosition, true, ' (VC)');
+            yPosition += 50;
+            
+            // Add other players
+            players.forEach((player) => {
+                const playerUpper = player.toUpperCase();
+                if (playerUpper !== captain && playerUpper !== viceCaptain) {
+                    drawPlayerName(ctx, playerUpper, canvas.width/2, yPosition, false, '');
+                    yPosition += 50;
+                }
+            });
+            
+            // Add footer with contact info
+            yPosition = 1200;
+            ctx.fillStyle = '#718096';
+            ctx.font = '20px Poppins';
+            ctx.textAlign = 'center';
+            ctx.fillText('For inquiries, please contact:', canvas.width/2, yPosition);
+            yPosition += 30;
+            ctx.fillText('Phone: 9862206255, 9862465587', canvas.width/2, yPosition);
+            yPosition += 30;
+            ctx.fillText('Email: melaulistrikers@gmail.com', canvas.width/2, yPosition);
+            
+            // Convert canvas to image and download
+            const link = document.createElement('a');
+            link.download = `${document.getElementById('teamName').value}_Squad.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+        
+        function drawPlayerName(ctx, name, x, y, isCaptainOrVice, suffix) {
+            // Split name into parts (assuming format is "FIRST LAST" or "FIRST MIDDLE LAST")
+            const parts = name.split(' ');
+            const firstName = parts[0];
+            const lastName = parts.slice(1).join(' ');
+            
+            // Calculate total width
+            ctx.font = 'bold 32px "Arial Black", Gadget, sans-serif';
+            const firstNameWidth = ctx.measureText(firstName).width;
+            
+            ctx.font = '32px "Arial", sans-serif';
+            const lastNameWidth = ctx.measureText(' ' + lastName + (isCaptainOrVice ? suffix : '')).width;
+            const totalWidth = firstNameWidth + lastNameWidth;
+            
+            // Draw first name in bold
+            ctx.font = 'bold 32px "Arial Black", Gadget, sans-serif';
+            ctx.fillText(firstName, x - totalWidth/2 + firstNameWidth/2, y);
+            
+            // Draw last name in regular font
+            ctx.font = '32px "Arial", sans-serif';
+            ctx.fillText(' ' + lastName + (isCaptainOrVice ? suffix : ''), x - totalWidth/2 + firstNameWidth + lastNameWidth/2, y);
+        }
     </script>
 </body>
 </html>
