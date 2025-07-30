@@ -241,15 +241,18 @@
         .squad-captain {
             font-weight: 700;
             margin-bottom: 5px;
+            text-transform: uppercase;
         }
         
         .squad-vice-captain {
             font-weight: 600;
             margin-bottom: 5px;
+            text-transform: uppercase;
         }
         
         .squad-player {
             margin-bottom: 3px;
+            text-transform: uppercase;
         }
         
         .download-btn {
@@ -273,6 +276,68 @@
         /* Hidden canvas for image generation */
         #squadCanvas {
             display: none;
+        }
+        
+        /* Special styling for the image version */
+        .squad-image-container {
+            position: fixed;
+            top: -10000px;
+            left: -10000px;
+            width: 600px;
+            padding: 40px;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 10px;
+        }
+        
+        .squad-image-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            color: var(--secondary);
+            text-transform: uppercase;
+            text-align: center;
+        }
+        
+        .squad-image-subtitle {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 30px;
+            font-weight: 700;
+            text-align: center;
+        }
+        
+        .squad-image-divider {
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            margin: 20px 0;
+            border: none;
+        }
+        
+        .squad-image-list {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 1.1rem;
+        }
+        
+        .squad-image-captain {
+            font-weight: 800;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            font-size: 1.2rem;
+        }
+        
+        .squad-image-vice-captain {
+            font-weight: 700;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            font-size: 1.15rem;
+        }
+        
+        .squad-image-player {
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            font-weight: 600;
         }
         
         @keyframes fadeIn {
@@ -404,8 +469,17 @@
         </div>
     </div>
 
-    <!-- Hidden canvas for image generation -->
-    <canvas id="squadCanvas"></canvas>
+    <!-- Hidden container for image generation -->
+    <div id="squadImageContainer" class="squad-image-container">
+        <h2 id="imageTeamName" class="squad-image-title"></h2>
+        <p class="squad-image-subtitle">SQUAD</p>
+        <hr class="squad-image-divider">
+        <div class="squad-image-list">
+            <p id="imageCaptain" class="squad-image-captain"></p>
+            <p id="imageViceCaptain" class="squad-image-vice-captain"></p>
+            <div id="imagePlayers"></div>
+        </div>
+    </div>
 
     <!-- html2canvas library for converting HTML to image -->
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
@@ -503,39 +577,64 @@
             const viceCaptain = document.getElementById('viceCaption').value;
             const players = document.getElementById('playerSquad').value.split('\n').filter(player => player.trim() !== '');
             
+            // Display in the visible section
             document.getElementById('displayTeamName').textContent = teamName;
-            document.getElementById('displayCaptain').textContent = captain + ' (C)';
-            document.getElementById('displayViceCaptain').textContent = viceCaptain + ' (VC)';
+            document.getElementById('displayCaptain').textContent = captain.toUpperCase() + ' (C)';
+            document.getElementById('displayViceCaptain').textContent = viceCaptain.toUpperCase() + ' (VC)';
             
             const playersContainer = document.getElementById('displayPlayers');
             playersContainer.innerHTML = '';
             
             players.forEach(player => {
-                if (player.trim() !== '' && player.trim() !== captain && player.trim() !== viceCaptain) {
+                if (player.trim() !== '' && player.trim().toUpperCase() !== captain.toUpperCase() && player.trim().toUpperCase() !== viceCaptain.toUpperCase()) {
                     const playerElement = document.createElement('p');
                     playerElement.className = 'squad-player';
-                    playerElement.textContent = player;
+                    playerElement.textContent = player.toUpperCase();
                     playersContainer.appendChild(playerElement);
                 }
             });
             
             document.getElementById('squadDisplay').style.display = 'block';
+            
+            // Also prepare the hidden image version
+            prepareImageVersion(teamName, captain, viceCaptain, players);
+        }
+        
+        // Prepare the hidden version for image download
+        function prepareImageVersion(teamName, captain, viceCaptain, players) {
+            document.getElementById('imageTeamName').textContent = teamName.toUpperCase();
+            document.getElementById('imageCaptain').textContent = captain.toUpperCase() + ' (C)';
+            document.getElementById('imageViceCaptain').textContent = viceCaptain.toUpperCase() + ' (VC)';
+            
+            const playersContainer = document.getElementById('imagePlayers');
+            playersContainer.innerHTML = '';
+            
+            players.forEach(player => {
+                if (player.trim() !== '' && player.trim().toUpperCase() !== captain.toUpperCase() && player.trim().toUpperCase() !== viceCaptain.toUpperCase()) {
+                    const playerElement = document.createElement('p');
+                    playerElement.className = 'squad-image-player';
+                    playerElement.textContent = player.toUpperCase();
+                    playersContainer.appendChild(playerElement);
+                }
+            });
         }
         
         // Download squad as image
         document.getElementById('downloadBtn').addEventListener('click', function() {
-            const squadDisplay = document.getElementById('squadDisplay');
+            const container = document.getElementById('squadImageContainer');
             
             // Use html2canvas to convert the squad display to an image
-            html2canvas(squadDisplay, {
-                scale: 2, // Higher quality
+            html2canvas(container, {
+                scale: 3, // Higher quality
                 backgroundColor: null, // Transparent background
                 logging: false,
-                useCORS: true
+                useCORS: true,
+                windowWidth: 600,
+                windowHeight: container.scrollHeight
             }).then(canvas => {
                 // Convert canvas to image and download
                 const link = document.createElement('a');
-                link.download = `${document.getElementById('displayTeamName').textContent.replace(/\s+/g, '_')}_Squad.png`;
+                link.download = `${document.getElementById('imageTeamName').textContent.replace(/\s+/g, '_')}_Squad.png`;
                 link.href = canvas.toDataURL('image/png');
                 link.click();
             });
