@@ -200,6 +200,81 @@
             display: none;
         }
         
+        /* Squad Display Styles */
+        .squad-display {
+            display: none;
+            margin-top: 30px;
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            text-align: center;
+        }
+        
+        .squad-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--secondary);
+            text-transform: uppercase;
+        }
+        
+        .squad-subtitle {
+            font-size: 1rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .squad-divider {
+            height: 2px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            margin: 15px 0;
+            border: none;
+        }
+        
+        .squad-list {
+            text-align: left;
+            margin-top: 20px;
+        }
+        
+        .squad-captain {
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .squad-vice-captain {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .squad-player {
+            margin-bottom: 3px;
+        }
+        
+        .download-btn {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .download-btn:hover {
+            background: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        /* Hidden canvas for image generation */
+        #squadCanvas {
+            display: none;
+        }
+        
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -236,6 +311,14 @@
                 padding: 14px;
                 font-size: 1rem;
             }
+            
+            .squad-display {
+                padding: 20px;
+            }
+            
+            .squad-title {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
@@ -270,8 +353,8 @@
                 </div>
                 
                 <div class="input-group">
-                    <label for="playerSquad" class="input-label">Player Squad</label>
-                    <textarea id="playerSquad" name="Player Squad" class="input-field" placeholder="List all players" required></textarea>
+                    <label for="playerSquad" class="input-label">Player Squad (One player per line)</label>
+                    <textarea id="playerSquad" name="Player Squad" class="input-field" placeholder="List all players (one per line)" required rows="5"></textarea>
                 </div>
                 
                 <div class="input-group">
@@ -306,8 +389,26 @@
                     <p>We will contact you soon for payment.</p>
                 </div>
             </form>
+            
+            <div id="squadDisplay" class="squad-display">
+                <h2 id="displayTeamName" class="squad-title"></h2>
+                <p class="squad-subtitle">SQUAD</p>
+                <hr class="squad-divider">
+                <div class="squad-list">
+                    <p id="displayCaptain" class="squad-captain"></p>
+                    <p id="displayViceCaptain" class="squad-vice-captain"></p>
+                    <div id="displayPlayers"></div>
+                </div>
+                <button id="downloadBtn" class="download-btn">Download Squad as Image</button>
+            </div>
         </div>
     </div>
+
+    <!-- Hidden canvas for image generation -->
+    <canvas id="squadCanvas"></canvas>
+
+    <!-- html2canvas library for converting HTML to image -->
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
     <script>
         const phoneInput = document.getElementById('contactNumber');
@@ -370,6 +471,9 @@
             // Show success message
             document.getElementById('successMessage').style.display = 'block';
             
+            // Display squad information
+            displaySquad();
+            
             // Submit form
             const formData = new FormData(form);
             
@@ -382,13 +486,58 @@
                 console.log('Submission successful', data);
                 form.reset();
                 window.scrollTo({
-                    top: document.getElementById('successMessage').offsetTop - 20,
+                    top: document.getElementById('squadDisplay').offsetTop - 20,
                     behavior: 'smooth'
                 });
             })
             .catch(error => {
                 console.error('Submission error:', error);
                 alert('Submission failed. Please try again.');
+            });
+        });
+        
+        // Function to display squad information
+        function displaySquad() {
+            const teamName = document.getElementById('teamName').value;
+            const captain = document.getElementById('caption').value;
+            const viceCaptain = document.getElementById('viceCaption').value;
+            const players = document.getElementById('playerSquad').value.split('\n').filter(player => player.trim() !== '');
+            
+            document.getElementById('displayTeamName').textContent = teamName;
+            document.getElementById('displayCaptain').textContent = captain + ' (C)';
+            document.getElementById('displayViceCaptain').textContent = viceCaptain + ' (VC)';
+            
+            const playersContainer = document.getElementById('displayPlayers');
+            playersContainer.innerHTML = '';
+            
+            players.forEach(player => {
+                if (player.trim() !== '' && player.trim() !== captain && player.trim() !== viceCaptain) {
+                    const playerElement = document.createElement('p');
+                    playerElement.className = 'squad-player';
+                    playerElement.textContent = player;
+                    playersContainer.appendChild(playerElement);
+                }
+            });
+            
+            document.getElementById('squadDisplay').style.display = 'block';
+        }
+        
+        // Download squad as image
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            const squadDisplay = document.getElementById('squadDisplay');
+            
+            // Use html2canvas to convert the squad display to an image
+            html2canvas(squadDisplay, {
+                scale: 2, // Higher quality
+                backgroundColor: null, // Transparent background
+                logging: false,
+                useCORS: true
+            }).then(canvas => {
+                // Convert canvas to image and download
+                const link = document.createElement('a');
+                link.download = `${document.getElementById('displayTeamName').textContent.replace(/\s+/g, '_')}_Squad.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
             });
         });
     </script>
